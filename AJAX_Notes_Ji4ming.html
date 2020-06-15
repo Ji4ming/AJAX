@@ -1,0 +1,77 @@
+<!--JSONNotes_Ji4ming_20200615-->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title> JSONNotes_Ji4ming </title>
+
+    <script>
+        function loadXMLDoc()
+        {
+            // https://www.runoob.com/ajax/ajax-tutorial.html
+            var xmlhttp;
+            if (window.XMLHttpRequest)
+            {
+                //  IE7+, Firefox, Chrome, Opera, Safari 浏览器执行代码
+                xmlhttp=new XMLHttpRequest();
+            }
+            else
+            {
+                // IE6, IE5 浏览器执行代码
+                xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
+            }
+            xmlhttp.onreadystatechange=function()
+            {
+                if (xmlhttp.readyState==4 && xmlhttp.status==200)
+                /*
+                    readyState:
+                        0: 请求未初始化
+                        1: 服务器连接已建立
+                        2: 请求已接收
+                        3: 请求处理中
+                        4: 请求已完成，且响应已就绪
+                    status:
+                        200:"OK"
+                        404:"未找到页面"
+                */
+                {
+                    document.getElementById("myDiv").innerHTML=xmlhttp.responseText;
+                    // responseXML: https://www.runoob.com/ajax/ajax-xmlhttprequest-response.html
+                }
+            }
+
+            /*
+                如需将请求发送到服务器，我们使用 XMLHttpRequest 对象的 open() 和 send() 方法：
+
+                xmlhttp.open("GET","ajax_info.txt",true);   // method: GET/POST ,async: true/false
+                xmlhttp.send(string);  // string 仅用于 POST 请求
+
+                POST or GET：
+                与 POST 相比，GET 更简单也更快，并且在大部分情况下都能用。然而，在以下情况中，请使用 POST 请求：
+                    无法使用缓存文件（更新服务器上的文件或数据库）
+                    向服务器发送大量数据（POST 没有数据量限制）
+                    发送包含未知字符的用户输入时，POST 比 GET 更稳定也更可靠
+
+                true or false: （同步异步问题）
+                https://www.runoob.com/ajax/ajax-xmlhttprequest-send.html
+            */
+            // 为了避免得到缓存的结果，请向 URL 添加一个唯一的 ID：
+            xmlhttp.open("GET","/try/ajax/demo_get.php?t=" + Math.random(),true);
+            xmlhttp.send();
+
+            // AJAX with php: https://www.runoob.com/ajax/ajax-asp-php.html
+            // AJAX instances: https://www.runoob.com/ajax/ajax-examples.html
+        }
+
+    </script>
+
+</head>
+<body>
+
+    <h2>AJAX</h2>
+    <button type="button" onclick="loadXMLDoc()">请求数据</button>
+    <div id="myDiv"></div>
+
+</body>
+</html>
